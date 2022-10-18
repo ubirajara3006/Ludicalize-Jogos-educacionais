@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="shortcut icon" href="../../images/favicon.ico" type="image/x-icon">
+    <script defer src="script/script.js"></script>
+    <title>EQUAÇÕES ESPACIAIS</title>
+</head>
+<body>
+    <main>
+        <header>
+            <h1 id="h1">EQUAÇÕES ESPACIAIS</h1>
+            <div id="buttons">
+                <div><a href="../../pages/sobre.html">SOBRE</a></div>
+                <div>Prof. Bira</div>
+            </div>
+            <div id="timer-and-score">
+                <div>
+                    TEMPO: <span id="timer">- -</span>
+                </div>
+                <div>
+                    PONTOS: <span id="score">0</span>
+                </div>
+            </div>
+        </header>
+
+        <section class="start" id="start">
+            <div id="background"></div>
+            <p id="p">Descubra o valor numérico desconhecido de cada astro para resolver corretamente a expressão proposta.
+            </p>    
+            <button onclick="start()">INICIAR</button>        
+        </section>
+
+        <form class="box-game" id="box-game">
+            <div class="expression" id="expression-1">
+                <div class="img-1">
+                    <input type="number" id="input-1">
+                    <img src="images/astro-3.gif" alt="astro-3">
+                </div>
+                <span>+</span>
+                <div class="img-1">
+                    <input type="number" id="input-1">
+                    <img src="images/astro-3.gif" alt="astro-3">
+                </div>
+                <span>+</span>
+                <div class="img-1">
+                    <input type="number" id="input-1">
+                    <img src="images/astro-3.gif" alt="astro-3">
+                </div>
+                <span>=</span>
+                <div class="res" id="res-1">00</div>
+            </div>
+
+            <div class="expression" id="expression-2">
+                <div class="img-2">
+                    <input type="number" id="input-2">
+                    <img src="images/astro-2.gif" alt="astro-2">
+                </div>
+                <span>-</span>
+                <div class="img-1">
+                    <input type="number" id="input-1">
+                    <img src="images/astro-3.gif" alt="astro-3">
+                </div>
+                <span>=</span>
+                <div class="res"id="res-2">00</div>
+            </div>
+
+            <div class="expression" id="expression-3">
+                <div class="img-3">
+                    <input type="number" id="input-3">
+                    <img src="images/astro-4.gif" alt="astro-4">
+                </div>
+                <span>x</span>
+                <div class="img-2">
+                    <input type="number" id="input-2">
+                    <img src="images/astro-2.gif" alt="astro-2">
+                </div>
+                <span>=</span>
+                <div class="res" id="res-3">00</div>
+            </div>
+
+            <div class="expression" id="question">
+                <div class="img-1">
+                    <input type="number" id="input-1">
+                    <img src="images/astro-3.gif" alt="astro-3">
+                </div>
+                <span>+</span>
+                <div class="img-2">
+                    <input type="number" id="input-2">
+                    <img src="images/astro-2.gif" alt="astro-2">
+                </div>
+                <span>+</span>
+                <div class="img-3">
+                    <input type="number" id="input-3">
+                    <img src="images/astro-4.gif" alt="astro-4">
+                </div>
+                <span>=</span>
+                <input type="number" id="res-question" placeholder="?">
+            </div>
+            <button type="submit">CONFIRMAR RESPOSTA</button>
+        </form>
+
+    </main>
+
+    <footer>
+
+    </footer>
+</body>
+</html>
