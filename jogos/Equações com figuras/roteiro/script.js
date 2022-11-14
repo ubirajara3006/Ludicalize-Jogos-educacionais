@@ -50,20 +50,16 @@ boxGame1.addEventListener('submit', (e) =>{
     e.preventDefault();
     const inputRes = +document.getElementById('res-question').value;
     console.log(inputRes)
-    if(s == 2){
-        clearInterval(timer);
-        clearInterval(value);
-        boxGame1.innerHTML = '<p>PARABÉNS, VOCÊ ACERTOU TODAS! FIM DE JOGO!';
-        const endGame = document.querySelector('.box-game p');
-        h1Writer(endGame)
-        s++;
-        score.innerHTML = s;
-    }else if(num1 + num2 + num3 == inputRes){
+
+    if(inputRes == ''){
+        alert('Digite um valor antes de confirmar resposta!')
+    }
+    else if(num1 + num2 + num3 == inputRes){
         alert('RESPOSTA CORRETA! +1 PONTO');
         s++;
         score.innerHTML = s;
         CreatQuestions();
-    }else{
+    }else {
         alert('ERRoooOOOoou!')
     }
     boxGame1.reset()
@@ -102,6 +98,14 @@ setTimeout(()=>{
 }, 1400)
 
 const value = setInterval(()=>{
+    if(s == 3){
+        clearInterval(timer);
+        boxGame1.innerHTML = '<p>PARABÉNS, VOCÊ ACERTOU TODAS! FIM DE JOGO!';
+        const endGame = document.querySelector('.box-game p');
+        h1Writer(endGame)
+        score.innerHTML = s;
+        clearInterval(value);
+    }
     const input1 = document.querySelectorAll('#input-1');
     const input2 = document.querySelectorAll('#input-2');
     const input3 = document.querySelectorAll('#input-3');
