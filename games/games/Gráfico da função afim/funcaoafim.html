@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Calculadora de Função Linear</title>
+  <style>
+    body {
+      background: linear-gradient(to bottom, #4caf4f4b 3%, #FFF);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    h1 {
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      border: 2px solid #4CAF50;
+      padding: 10px;
+      background-color: #f8f9fa;
+      color: #333;
+    }
+
+    h3 {
+      margin-top: 3px;
+    }
+
+    #container {
+      text-align: center;
+    }
+
+    #result {
+      width: 100%;
+      height: 50px;
+      background-color: #f2f2f2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    #chartContainer {
+      width: 400px;
+      height: 300px;
+      margin-top: 20px;
+    }
+
+    #description {
+      margin-top: 10px;
+      font-weight: bolder;
+    }
+
+    label {
+      display:inline;
+      margin-top: 10px;
+      font-weight: 900;
+      margin: 0 20px;
+    }
+
+    input {
+      margin-top: 5px;
+      padding: 5px;
+      width: 50px;
+      margin: 0 auto;
+    }
+
+    button {
+      display: block;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin: 30px auto;
+      padding: 10px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <h1>Forneça os valores de "a" e "b" na função f(x) = ax + b</h1>
+    <label for="inputA">a:</label>
+    <input type="number" id="inputA">
+    <label for="inputB">b:</label>
+    <input type="number" id="inputB">
+    <button onclick="mostrarFuncao()">Enviar</button>
+    <div id="result"></div>
+    <canvas id="chartContainer"></canvas>
+    <div id="description"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    function mostrarFuncao() {
+      var inputA = document.getElementById("inputA").value;
+      var inputB = document.getElementById("inputB").value;
+      var resultDiv = document.getElementById("result");
+      resultDiv.innerHTML = "f(x) = " + inputA + "x + " + inputB;
+
+      // Configuração do gráfico
+      var ctx = document.getElementById("chartContainer").getContext("2d");
+      var xValues = [];
+      var yValues = [];
+      var minX = -10;
+      var maxX = 10;
+
+      for (var x = minX; x <= maxX; x++) {
+        var y = eval(inputA * x + inputB);
+        xValues.push(x);
+        yValues.push(y);
+      }
+
+      var chart = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: xValues,
+          datasets: [
+            {
+              label: "f(x) = " + inputA + "x + " + inputB,
+              data: yValues,
+              borderColor: "rgba(255, 0, 0, 1)",
+              backgroundColor: "rgba(75, 192, 192, 0.2)",
+              borderWidth: 2
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            x: {
+              display: true,
+              scaleLabel: {
+                display: true,
+                labelString: "x"
+              }
+            },
+            y: {
+              display: true,
+              scaleLabel: {
+                display: true,
+                labelString: "f(x)"
+              }
+            }
+          },
+          plugins: {
+            tooltip: {
+              callbacks: {
+                label: function (context) {
+                  var label = context.dataset.label || "";
+
+                  if (label) {
+                    label += ": ";
+                  }
+                  label += context.parsed.y;
+                  return label;
+                }
+              }
+            }
+          }
+        }
+      });
+
+      var descriptionDiv = document.getElementById("description");
+      var description = "";
+      if (inputA > 0) {
+        description = "A função é crescente.";
+      } else if (inputA < 0) {
+        description = "A função é decrescente.";
+      } else {
+        description = "A função é constante.";
+      }
+      descriptionDiv.innerHTML = description;
+    }
+  </script>
+</body>
+</html>
