@@ -11,6 +11,8 @@
         }
         canvas {
             border: 1px solid black;
+            display: block;
+            margin: auto;
         }
         button {
             margin: 10px;
@@ -21,7 +23,7 @@
 </head>
 <body>
     <h2>Casos de Semelhança de Triângulos</h2>
-    <canvas id="canvas" width="600" height="500"></canvas>
+    <canvas id="canvas" width="900" height="500"></canvas>
     <br>
     <button onclick="generateTriangles()">Recarregar</button>
     <button onclick="checkSimilarity('AA')">Caso AA</button>
@@ -40,16 +42,18 @@
 
         function generateTriangles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+            document.getElementById("message").textContent = "";
 
-            let baseX = 120, baseY = 450;
-            let A = {x: baseX, y: baseY};
-            let B = {x: baseX + Math.random() * 150 + 100, y: baseY};
-            let C = {x: baseX + Math.random() * 100 + 50, y: baseY - Math.random() * 150 - 80};
+            let baseX1 = 250, baseY = 450;
+            let A = {x: baseX1, y: baseY};
+            let B = {x: baseX1 + Math.random() * 150 + 100, y: baseY};
+            let C = {x: baseX1 + Math.random() * 100 + 50, y: baseY - Math.random() * 150 - 80};
 
             let scale = randomScale();
-            let A1 = {x: 350, y: 450};
-            let B1 = {x: A1.x + (B.x - A.x) * scale, y: A1.y};
-            let C1 = {x: A1.x + (C.x - A.x) * scale, y: A1.y - (A.y - C.y) * scale};
+            let baseX2 = 450;
+            let A1 = {x: baseX2, y: baseY};
+            let B1 = {x: baseX2 + (B.x - A.x) * scale, y: baseY};
+            let C1 = {x: baseX2 + (C.x - A.x) * scale, y: baseY - (A.y - C.y) * scale};
 
             let cases = ["AA", "LAL", "LLL"];
             similarityCase = cases[Math.floor(Math.random() * cases.length)];
