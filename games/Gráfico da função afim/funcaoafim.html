@@ -1,213 +1,139 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt">
 <head>
-  <title>Calculadora de Função Linear</title>
-  <style>
-    body {
-      background: linear-gradient(to bottom, #4caf4f4b 3%, #FFF);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      font-family: Arial, sans-serif;
-    }
-
-    h1 {
-      font-size: 50px;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-      border: 2px solid #4CAF50;
-      padding: 10px;
-      background-color: #f8f9fa;
-      color: #333;
-    }
-
-    #container {
-      text-align: center;
-      max-width: 900px; /* Adicionado */
-      padding: 20px; /* Adicionado */
-    }
-
-    #result {
-      width: 100%;
-      height: 50px;
-      background-color: #f2f2f2;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      margin-top: 20px;
-    }
-
-    #chartContainer {
-      width: 100%;
-      height: 300px;
-      margin-top: 20px;
-    }
-
-    #description {
-      margin-top: 10px;
-      font-weight: bolder;
-      font-size: 50px;
-    }
-
-    #zero {
-      margin-top: 10px;
-      font-weight: bolder;
-      font-size: 50px;
-    }
-
-    label {
-      font-size: 50px;
-      display:inline;
-      margin-top: 10px;
-      font-weight: 900;
-      margin: 0 20px;
-    }
-
-    input {
-      margin-top: 5px;
-      padding: 5px;
-      width: 70px;
-      height: 70px;
-      margin: 0 auto;
-    }
-
-    button {
-      width: 300px;
-      height: 100px;
-      display: block;
-      font-size: 50px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      cursor: pointer;
-      margin: 30px auto;
-      padding: 10px;
-      border-radius: 5px;
-    }
-
-    /* Estilos para smartphones */
-    @media only screen and (max-width: 600px) {
-      #container {
-        padding: 10px;
-      }
-
-      input {
-        width: 40px;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semelhança de Triângulos</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        canvas {
+            border: 1px solid black;
+        }
+        button {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+    </style>
 </head>
 <body>
-  <div id="container">
-    <h1>Forneça os valores de "a" e "b" na função f(x) = ax + b</h1>
-    <label for="inputA">a:</label>
-    <input type="number" id="inputA">
-    <label for="inputB">b:</label>
-    <input type="number" id="inputB">
-    <button onclick="mostrarFuncao()">Enviar</button>
-    <div id="result"></div>
-    <canvas id="chartContainer"></canvas>
-    <div id="description"></div>
-    <div id="zero"></div>
-  </div>
+    <h2>Casos de Semelhança de Triângulos</h2>
+    <canvas id="canvas" width="600" height="500"></canvas>
+    <br>
+    <button onclick="generateTriangles()">Recarregar</button>
+    <button onclick="checkSimilarity('AA')">Caso AA</button>
+    <button onclick="checkSimilarity('LAL')">Caso LAL</button>
+    <button onclick="checkSimilarity('LLL')">Caso LLL</button>
+    <p id="message"></p>
+    
+    <script>
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+        let similarityCase = "";
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script>
-    var chart;
-
-    function mostrarFuncao() {
-      if (chart) {
-        chart.destroy();
-      }
-
-      var inputA = document.getElementById("inputA").value;
-      var inputB = document.getElementById("inputB").value;
-      var resultDiv = document.getElementById("result");
-      resultDiv.innerHTML = "f(x) = " + inputA + "x + " + inputB;
-
-      // Configuração do gráfico...
-
-      var descriptionDiv = document.getElementById("description");
-      var description = "";
-      if (inputA > 0) {
-        description = "A função é crescente.";
-      } else if (inputA < 0) {
-        description = "A função é decrescente.";
-      } else {
-        description = "A função é constante.";
-      }
-      descriptionDiv.innerHTML = description;
-
-      // Cálculo do zero da função...
-      var zeroDiv = document.getElementById("zero");
-      var zero = (-inputB) / inputA;
-      zeroDiv.innerHTML = "O zero da função é x = " + zero.toFixed(2);
-
-      // Configuração do gráfico...
-      var ctx = document.getElementById("chartContainer").getContext("2d");
-      var xValues = [];
-      var yValues = [];
-      var minX = -10;
-      var maxX = 10;
-
-      for (var x = minX; x <= maxX; x++) {
-        var y = eval(inputA * x + inputB);
-        xValues.push(x);
-        yValues.push(y);
-      }
-
-      chart = new Chart(ctx, {
-        type: "line",
-        data: {
-          labels: xValues,
-          datasets: [
-            {
-              label: "f(x) = " + inputA + "x + " + inputB,
-              data: yValues,
-              borderColor: "rgba(255, 0, 0, 1)",
-              backgroundColor: "rgba(75, 192, 192, 0.2)",
-              borderWidth: 2
-            }
-          ]
-        },
-        options: {
-          responsive: true,
-          scales: {
-            x: {
-              display: true,
-              scaleLabel: {
-                display: true,
-                labelString: "x"
-              }
-            },
-            y: {
-              display: true,
-              scaleLabel: {
-                display: true,
-                labelString: "f(x)"
-              }
-            }
-          },
-          plugins: {
-            tooltip: {
-              callbacks: {
-                label: function (context) {
-                  var label = context.dataset.label || "";
-
-                  if (label) {
-                    label += ": ";
-                  }
-                  label += context.parsed.y;
-                  return label;
-                }
-              }
-            }
-          }
+        function randomScale() {
+            return Math.random() * (1.5 - 0.8) + 0.8;
         }
-      });
-    }
-  </script>
+
+        function generateTriangles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            let baseX = 120, baseY = 450;
+            let A = {x: baseX, y: baseY};
+            let B = {x: baseX + Math.random() * 150 + 100, y: baseY};
+            let C = {x: baseX + Math.random() * 100 + 50, y: baseY - Math.random() * 150 - 80};
+
+            let scale = randomScale();
+            let A1 = {x: 350, y: 450};
+            let B1 = {x: A1.x + (B.x - A.x) * scale, y: A1.y};
+            let C1 = {x: A1.x + (C.x - A.x) * scale, y: A1.y - (A.y - C.y) * scale};
+
+            let cases = ["AA", "LAL", "LLL"];
+            similarityCase = cases[Math.floor(Math.random() * cases.length)];
+
+            drawTriangle(A, B, C, "A", "B", "C", "black");
+            drawTriangle(A1, B1, C1, "A'", "B'", "C'", "black");
+            highlightSimilarity(similarityCase, A, B, C, A1, B1, C1);
+        }
+
+        function drawTriangle(A, B, C, labelA, labelB, labelC, color) {
+            ctx.beginPath();
+            ctx.moveTo(A.x, A.y);
+            ctx.lineTo(B.x, B.y);
+            ctx.lineTo(C.x, C.y);
+            ctx.closePath();
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            ctx.fillStyle = "black";
+            ctx.fillText(labelA, A.x - 10, A.y - 10);
+            ctx.fillText(labelB, B.x + 5, B.y);
+            ctx.fillText(labelC, C.x, C.y - 5);
+        }
+
+        function highlightSimilarity(caseType, A, B, C, A1, B1, C1) {
+            ctx.lineWidth = 3;
+            if (caseType === "AA") {
+                drawSector(A, C, B, "red");
+                drawSector(A1, C1, B1, "red");
+                drawSector(B, A, C, "green");
+                drawSector(B1, A1, C1, "green");
+            } else if (caseType === "LAL") {
+                ctx.strokeStyle = "green";
+                [[A, B], [B, C]].forEach(([p1, p2]) => {
+                    ctx.beginPath();
+                    ctx.moveTo(p1.x, p1.y);
+                    ctx.lineTo(p2.x, p2.y);
+                    ctx.stroke();
+                });
+                [[A1, B1], [B1, C1]].forEach(([p1, p2]) => {
+                    ctx.beginPath();
+                    ctx.moveTo(p1.x, p1.y);
+                    ctx.lineTo(p2.x, p2.y);
+                    ctx.stroke();
+                });
+                drawSector(B, A, C, "red");
+                drawSector(B1, A1, C1, "red");
+            } else if (caseType === "LLL") {
+                let colors = ["red", "green", "blue"];
+                [[A, B], [B, C], [C, A]].forEach(([p1, p2], i) => {
+                    ctx.strokeStyle = colors[i];
+                    ctx.beginPath();
+                    ctx.moveTo(p1.x, p1.y);
+                    ctx.lineTo(p2.x, p2.y);
+                    ctx.stroke();
+                });
+                [[A1, B1], [B1, C1], [C1, A1]].forEach(([p1, p2], i) => {
+                    ctx.strokeStyle = colors[i];
+                    ctx.beginPath();
+                    ctx.moveTo(p1.x, p1.y);
+                    ctx.lineTo(p2.x, p2.y);
+                    ctx.stroke();
+                });
+            }
+        }
+
+        function drawSector(vertex, adjacent1, adjacent2, color) {
+            let radius = 30;
+            let angle1 = Math.atan2(adjacent1.y - vertex.y, adjacent1.x - vertex.x);
+            let angle2 = Math.atan2(adjacent2.y - vertex.y, adjacent2.x - vertex.x);
+            ctx.fillStyle = color;
+            ctx.beginPath();
+            ctx.moveTo(vertex.x, vertex.y);
+            ctx.arc(vertex.x, vertex.y, radius, angle1, angle2, false);
+            ctx.closePath();
+            ctx.fill();
+        }
+
+        function checkSimilarity(choice) {
+            let message = choice === similarityCase ? "Correto!" : "Errado, tente novamente.";
+            document.getElementById("message").textContent = message;
+        }
+
+        generateTriangles();
+    </script>
 </body>
 </html>
