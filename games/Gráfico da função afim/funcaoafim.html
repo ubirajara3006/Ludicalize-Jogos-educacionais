@@ -44,15 +44,16 @@
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             document.getElementById("message").textContent = "";
 
-            let baseX1 = 250, baseY = 450;
+            let baseX1 = 200, baseY = 450;
+            let baseLength = Math.random() * 100 + 120;
             let A = {x: baseX1, y: baseY};
-            let B = {x: baseX1 + Math.random() * 150 + 100, y: baseY};
-            let C = {x: baseX1 + Math.random() * 100 + 50, y: baseY - Math.random() * 150 - 80};
+            let B = {x: baseX1 + baseLength, y: baseY};
+            let C = {x: baseX1 + baseLength / 2, y: baseY - Math.random() * 150 - 80};
 
             let scale = randomScale();
-            let baseX2 = 450;
+            let baseX2 = 500;
             let A1 = {x: baseX2, y: baseY};
-            let B1 = {x: baseX2 + (B.x - A.x) * scale, y: baseY};
+            let B1 = {x: baseX2 + baseLength * scale, y: baseY};
             let C1 = {x: baseX2 + (C.x - A.x) * scale, y: baseY - (A.y - C.y) * scale};
 
             let cases = ["AA", "LAL", "LLL"];
